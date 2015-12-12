@@ -1,0 +1,61 @@
+<zk>
+	<window title="Usuarios Gimnasio" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('zk.UsuarioVM')">
+		<window title="Crear Usuario" border="normal"
+		mode="modal" visible="@load(vm.usuarioActual ne null)">
+			<hbox>
+				<vbox>
+			 		Nombre:<textbox value="@bind(vm.usuarioActual.nombre)"></textbox>  
+					DNI:<textbox value="@load(vm.usuarioActual.dni)  @save(vm.usuarioActual.dni, before='save')"></textbox> 
+					Fecha Nacimiento:<datebox value="@load(vm.usuarioActual.fechaNacimiento)  @save(vm.usuarioActual.fechaNacimiento, before='save')"></datebox>
+					Sexo:<radiogroup selectedItem="@bind(vm.usuarioActual.sexo)"> 
+						<radio label="${each}" forEach="${vm.sexo}" value="${each}" />	
+					</radiogroup>
+					Domicilio:<textbox value="@load(vm.usuarioActual.domicilio)  @save(vm.usuarioActual.domicilio, before='save')"></textbox>
+					Telefono:<textbox value="@load(vm.usuarioActual.telefono)  @save(vm.usuarioActual.telefono, before='save')"></textbox>
+					Ocupacion:<radiogroup selectedItem="@bind(vm.usuarioActual.ocupacion)">
+						<radio label="${each}" forEach="${vm.ocupacion}" value="${each}" />	
+					</radiogroup>
+				</vbox>
+			</hbox>
+			<hbox>
+				<button label="Guardar" onClick="@command('save')"></button>
+				<button label="Cancelar" onClick="@command('cancel')"></button>
+			</hbox>
+		</window>
+
+		<groupbox mold="3d" closable="false">
+			<caption label="Lista de usuarios">
+			<hbox>
+				<button label="Crear nuevo usuario" onClick="@command('nuevoUsuario')" />
+				</hbox>
+			</caption>
+			<listbox model="@load(vm.usuarios)">
+				<listhead>
+					<listheader label="Name" />
+					<listheader label="Actions" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell>
+							<label value="@load(each.nombre)" />
+						</listcell>
+						<listcell>
+							<button label="Borrar"
+								onClick="@command('borrar',usuario=each)">
+							</button>
+							<button label="Modificar"
+								onClick="@command('modificar',usuario=each)">
+							</button>
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+
+		</groupbox>
+
+	</window>
+
+
+</zk>

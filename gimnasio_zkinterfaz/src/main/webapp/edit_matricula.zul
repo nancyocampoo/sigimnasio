@@ -1,0 +1,57 @@
+<zk>
+	<window title="Gestionar Matriculas" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('zk.MatriculaVM')">
+		<window title="Crear Usuario" border="normal"
+		mode="modal" visible="@load(vm.matriculaActual ne null)">
+			<hbox>
+				<vbox>
+			 		Nombre usuario:<textbox value="@bind(vm.matriculaActual.nombre)"></textbox>  
+					Fecha Alta:<datebox value="@load(vm.matriculaActual.fechaAlta)  @save(vm.matriculaActual.fechaAlta, before='save')"></datebox> 
+					Fecha Baja:<datebox value="@load(vm.matriculaActual.fechaBaja)  @save(vm.matriculaActual.fechaBaja, before='save')"></datebox>
+					Tipo Tarifa:<radiogroup selectedItem="@bind(vm.matriculaActual.tarifa)"> 
+						<radio label="${each}" forEach="${vm.tarifa}" value="${each}" />	
+					</radiogroup>
+					Precio Tarifa:<textbox value="@load(vm.matriculaActual.precioTarifa)  @save(vm.matriculaActual.precioTarifa, before='save')"></textbox>
+				</vbox>
+			</hbox>
+			<hbox>
+				<button label="Guardar" onClick="@command('save')"></button>
+				<button label="Cancelar" onClick="@command('cancel')"></button>
+			</hbox>
+		</window>
+
+		<groupbox mold="3d" closable="false">
+			<caption label="Lista de Matriculas">
+			<hbox>
+				<button label="Crear nueva matricula" onClick="@command('nuevaMatricula')" />
+				</hbox>
+			</caption>
+			<listbox model="@load(vm.matriculas)">
+				<listhead>
+					<listheader label="Name" />
+					<listheader label="Actions" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell>
+							<label value="@load(each.nombre)" />
+						</listcell>
+						<listcell>
+							<button label="Borrar"
+								onClick="@command('borrar',usuario=each)">
+							</button>
+							<button label="Modificar"
+								onClick="@command('modificar',usuario=each)">
+							</button>
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+
+		</groupbox>
+
+	</window>
+
+
+</zk>
