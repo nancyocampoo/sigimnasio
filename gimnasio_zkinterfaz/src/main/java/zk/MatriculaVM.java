@@ -11,6 +11,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 
 import gimnasio.si.Matricula;
 import gimnasio.si.TipoTarifa;
+import gimnasio.si.Usuario;
 import gimnasio.si.util.Transaction;
 import gimnasio.si.util.TransactionUtil;
 import zk.jpa.DesktopEntityManagerManager;
@@ -80,5 +81,29 @@ public class MatriculaVM {
 	public void setTipoTarifa(TipoTarifa[] tipoTarifa) {
 		this.tipoTarifa = tipoTarifa;
 	}
+	
+	@Command
+	@NotifyChange({"matriculaActual","matriculas"})
+	public void save(){
+		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
+		TransactionUtil.doTransaction(new Transaction() {
+			@Override
+			public void run(EntityManager em) {
+				if(!edit)
+				{
+					em.persist(matriculaActual);
+				}
+			}
+		}, em);
+		this.matriculaActual = null;
+	}
+	
+	@Command
+	@NotifyChange("matriculaActual")
+	public void modificar (@BindingParam("matricula") Matricula m){
+		this.matriculaActual = m;
+		this.edit = true;
+	}
+	
 
 }

@@ -6,11 +6,11 @@
 		mode="modal" visible="@load(vm.matriculaActual ne null)">
 			<hbox>
 				<vbox>
-			 		Nombre usuario:<textbox value="@bind(vm.matriculaActual.nombre)"></textbox>  
+<!-- 			 		Nombre usuario:<textbox value="@bind(vm.matriculaActual.nombre)"></textbox>   -->
 					Fecha Alta:<datebox value="@load(vm.matriculaActual.fechaAlta)  @save(vm.matriculaActual.fechaAlta, before='save')"></datebox> 
 					Fecha Baja:<datebox value="@load(vm.matriculaActual.fechaBaja)  @save(vm.matriculaActual.fechaBaja, before='save')"></datebox>
 					Tipo Tarifa:<radiogroup selectedItem="@bind(vm.matriculaActual.tarifa)"> 
-						<radio label="${each}" forEach="${vm.tarifa}" value="${each}" />	
+						<radio label="${each}" forEach="${vm.tipoTarifa}" value="${each}" />	
 					</radiogroup>
 					Precio Tarifa:<textbox value="@load(vm.matriculaActual.precioTarifa)  @save(vm.matriculaActual.precioTarifa, before='save')"></textbox>
 				</vbox>
@@ -29,20 +29,20 @@
 			</caption>
 			<listbox model="@load(vm.matriculas)">
 				<listhead>
-					<listheader label="Name" />
+					<listheader label="fechaAlta" />
 					<listheader label="Actions" />
 				</listhead>
 				<template name="model">
 					<listitem>
 						<listcell>
-							<label value="@load(each.nombre)" />
+							<label value="@load(each.fechaAlta)" />
 						</listcell>
 						<listcell>
 							<button label="Borrar"
-								onClick="@command('borrar',usuario=each)">
+								onClick="@command('borrar',matricula=each)">
 							</button>
 							<button label="Modificar"
-								onClick="@command('modificar',usuario=each)">
+								onClick="@command('modificar',matricula=each)">
 							</button>
 						</listcell>
 					</listitem>

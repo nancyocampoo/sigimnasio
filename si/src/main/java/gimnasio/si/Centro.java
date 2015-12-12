@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,12 +19,13 @@ public class Centro {
 	private int id;
 	@NotNull
 	private String nombre;
-	@NotNull
-	private String ciudad;
+	@Enumerated(EnumType.STRING)
+	private Ciudad ciudad;
 	@NotNull
 	private String localizacion;
 	@NotNull
 	private String horario;
+
 	@OneToMany
 	private List<Matricula> matricula = new ArrayList<Matricula>();
 
@@ -34,11 +37,11 @@ public class Centro {
 		this.nombre = nombre;
 	}
 
-	public String getCiudad() {
+	public Ciudad getCiudad() {
 		return ciudad;
 	}
 
-	public void setCiudad(String ciudad) {
+	public void setCiudad(Ciudad ciudad) {
 		this.ciudad = ciudad;
 	}
 

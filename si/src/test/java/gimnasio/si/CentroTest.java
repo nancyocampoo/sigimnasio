@@ -36,7 +36,7 @@ public class CentroTest {
 	public void testCreateCentro() {
 		final Centro centro1 = new Centro();
 		centro1.setNombre("AqaGymOu");
-		centro1.setCiudad("Ourense");
+		centro1.setCiudad(Ciudad.Ourense);
 		centro1.setHorario("10:00-10:00");
 		centro1.setLocalizacion("Lagoas");
 		EntityManager em = emf.createEntityManager();

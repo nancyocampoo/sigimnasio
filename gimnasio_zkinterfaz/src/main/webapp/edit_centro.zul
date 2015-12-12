@@ -1,0 +1,56 @@
+<zk>
+	<window title="Centros Gimnasio" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('zk.CentroVM')">
+		<window title="Crear Centros" border="normal"
+		mode="modal" visible="@load(vm.centroActual ne null)">
+			<hbox>
+				<vbox>
+			 		Nombre:<textbox value="@bind(vm.centroActual.nombre)"></textbox>  
+					Horario:<textbox value="@load(vm.centroActual.horario)  @save(vm.centroActual.horario, before='save')"></textbox>
+					Ciudad: <combobox selectedItem="@bind(vm.centroActual.ciudad)">
+					    <comboitem label="${each}" forEach="${vm.ciudad}" value="${each}"/>
+					</combobox>
+					Localizacion:<textbox value="@load(vm.centroActual.localizacion)  @save(vm.centroActual.localizacion, before='save')"></textbox>
+				</vbox>
+			</hbox>
+			<hbox>
+				<button label="Guardar" onClick="@command('save')"></button>
+				<button label="Cancelar" onClick="@command('cancel')"></button>
+			</hbox>
+		</window>
+
+		<groupbox mold="3d" closable="false">
+			<caption label="Lista de centros">
+			<hbox>
+				<button label="Crear nuevo centro" onClick="@command('nuevoCentro')" />
+				</hbox>
+			</caption>
+			<listbox model="@load(vm.centros)">
+				<listhead>
+					<listheader label="Name" />
+					<listheader label="Actions" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell>
+							<label value="@load(each.nombre)" />
+						</listcell>
+						<listcell>
+							<button label="Borrar"
+								onClick="@command('borrar',centro=each)">
+							</button>
+							<button label="Modificar"
+								onClick="@command('modificar',centro=each)">
+							</button>
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+
+		</groupbox>
+
+	</window>
+
+
+</zk>
