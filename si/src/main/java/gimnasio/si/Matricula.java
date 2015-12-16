@@ -12,6 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+/**
+ *Creacion de la entidad Matricula, que hace referencia a las matriculas 
+ *de cada uno de los usuarios del gimnasio
+ * @author Nancy Ocampo, Jenifer Vazquez, Nuria Canle
+ */
 @Entity
 public class Matricula {
 	@Id
@@ -22,55 +27,100 @@ public class Matricula {
 	private Date fechaBaja;
 	@Enumerated(EnumType.STRING)
 	private TipoTarifa tarifa;
-	//@Pattern(regexp = "[0-9.-,]*")
 	private float precioTarifa;
 	@ManyToOne
 	private Usuario usuario;
 	@ManyToOne
-	private Centro centro;
+	private Centro centro = null;
 	
+	/**
+	 * Metodo para obtener la Fecha de Alta del gimnasio.
+	 * @return Date. Fecha Alta del gimnasio
+	 */
 	public Date getFechaAlta() {
 		return fechaAlta;
 	}
 
+	/**
+	 * Metodo para modificar la Fecha de Alta del gimnasio.
+	 * @param Date fechaAlta. Fecha alta del gimnasio
+	 * @return void
+	 */
 	public void setFechaAlta(Date fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
 
+	/**
+	 * Metodo para obtener la fecha baja del gimnasio.
+	 * @return Date. fecha baja del gimnasio
+	 */
 	public Date getFechaBaja() {
 		return fechaBaja;
 	}
 
+	/**
+	 * Metodo para modificar la fecha baja del gimnasio
+	 * @param Date fechaBaja. fecha baja del gimnasio
+	 * @return void
+	 */
 	public void setFechaBaja(Date fechaBaja) {
 		this.fechaBaja = fechaBaja;
 	}
 
+	/**
+	 * Metodo para obtener el tipo de tarifa de la matricula.
+	 * @return TipoTarifa. Enum de los tipos de tarifa del gimnasio
+	 */
 	public TipoTarifa getTarifa() {
 		return tarifa;
 	}
 
+	/**
+	 * Metodo para modificar el tipo de tarifa de la matricula
+	 * @param TipoTarifa tarifa. Enum de los tipos de tarifa del gimnasio 
+	 * @return void
+	 */
 	public void setTarifa(TipoTarifa tarifa) {
 		this.tarifa = tarifa;
 	}
 
+	/**
+	 * Metodo para obtener el precio de tarifa de la matricula
+	 * @return float. precioTarifa del gimnasio
+	 */
 	public float getPrecioTarifa() {
 		return precioTarifa;
 	}
 
+	/**
+	 * Metodo para modificar el precio de tarifa de la matricula
+	 * @param float precioTarifa. Precio tarifa de la matricula
+	 * @return void
+	 */
 	public void setPrecioTarifa(float precioTarifa) {
 		this.precioTarifa = precioTarifa;
 	}
 
+	/**
+	 * Metodo para obtener el id de la matricula
+	 * @return int id. Identificador de la matricula
+	 */
 	public int getId() {
 		return id;
 	}
 
-	// lo devuelve
+	/**
+	 * Metodo para obtener el usuario al que pertenece la matricula
+	 * @return Usuario. Objeto usuario
+	 */
 	public Usuario getUsuario() {
 		return this.usuario;
 	}
-
-	// lo guarda
+	/**
+	 * Metodo para modificar la lista de matriculas de un usuario
+	 * @param Usuario usuario. objeto usuario 
+	 * @return void
+	 */
 	public void setUsuario(Usuario usuario)
 	{
 		if(this.usuario!=null){
@@ -82,12 +132,19 @@ public class Matricula {
 		}
 	}
 	
-	// lo devuelve
+	/**
+	 * Metodo para obtener el centro en el que se realiza la Matricula
+	 * @return Centro. objeto centro
+	 */
 	public Centro getCentro() {
 		return this.centro;
 	}
 	
-	// lo guarda
+	/**
+	 * Metodo para modificar la lista de matriculas de un centro
+	 * @param Centro centro.objeto centro
+	 * @return void
+	 */
 	public void setCentro(Centro centro)
 	{
 		if(this.centro!=null){
@@ -97,56 +154,5 @@ public class Matricula {
 		if(centro!=null){
 			centro.internalAddMatricula(this);
 		}
-	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((fechaAlta == null) ? 0 : fechaAlta.hashCode());
-		result = prime * result + ((fechaBaja == null) ? 0 : fechaBaja.hashCode());
-		result = prime * result + Float.floatToIntBits(precioTarifa);
-		result = prime * result + ((tarifa == null) ? 0 : tarifa.hashCode());
-		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
-		result = prime * result + ((centro == null) ? 0 : centro.hashCode());
-		return result;
-	}
-
-	// para comparar objetos matricula
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Matricula other = (Matricula) obj;
-		if (fechaAlta == null) {
-			if (other.fechaAlta != null)
-				return false;
-		} else if (!fechaAlta.equals(other.fechaAlta))
-			return false;
-		if (fechaBaja == null) {
-			if (other.fechaBaja != null)
-				return false;
-		} else if (!fechaBaja.equals(other.fechaBaja))
-			return false;
-		if (Float.floatToIntBits(precioTarifa) != Float.floatToIntBits(other.precioTarifa))
-			return false;
-		if (tarifa != other.tarifa)
-			return false;
-		if (usuario == null) {
-			if (other.usuario != null)
-				return false;
-		} else if (!usuario.equals(other.usuario))
-			return false;
-		if (centro == null) {
-			if (other.centro != null)
-				return false;
-		} else if (!centro.equals(other.centro))
-			return false;
-		return true;
 	}
 }

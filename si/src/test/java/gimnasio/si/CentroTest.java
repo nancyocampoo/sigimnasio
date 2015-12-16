@@ -14,24 +14,37 @@ import org.junit.Test;
 import gimnasio.si.util.Transaction;
 import gimnasio.si.util.TransactionUtil;
 
+/**
+ *Creacion del Test de Centro, para comprobar su funcionamiento y crear datos
+ *  @author Nancy Ocampo, Jenifer Vázquez, Nuria Canle
+ */
 public class CentroTest {
 
 	private static EntityManagerFactory emf;
 
-	// esto se ejectura antes de todo y crea un entity manager factory emf
-	// utilizar la base de datos
+	/**
+	 * Metodo que cree la EntityManagerFactory
+	 * @return void
+	 */
 	@BeforeClass
 	public static void createEntityManagerFactory() {
 		emf = Persistence.createEntityManagerFactory("gimnasio-database");
 	}
 
-	// se ejectuta cuando se terminan todos los test y cierra la conexion con la
-	// base de datos
+	/**
+	 * Metodo para cerrar la conexion de la base de datos. Se ejecuta cuando se terminan todos los test
+	 * @return void
+	 */
 	@AfterClass
 	public static void closeEntityManagerFactory() {
 		emf.close();
 	}
-	//NOMBRE DEL ATRIBUTO
+	/**
+	 * Metodo para crear las pruebas sobre los centros en la base de datos. 
+	 * En el creamos un centro con sus atributos correspondientes y comprobamos
+	 * que los datos sean guardados correctamente en la BD
+	 * @return void
+	 */
 	@Test
 	public void testCreateCentro() {
 		final Centro centro1 = new Centro();

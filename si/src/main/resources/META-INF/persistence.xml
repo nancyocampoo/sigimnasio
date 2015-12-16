@@ -8,6 +8,7 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 		<class>gimnasio.si.Matricula</class>
 		<class>gimnasio.si.Centro</class>
 		<class>gimnasio.si.Usuario</class>
+		<class>gimnasio.si.Acceso</class>
 		<!-- <class>sing.proyectosi.Department</class>
 		<class>sing.proyectosi.Project</class> -->
 		<properties>

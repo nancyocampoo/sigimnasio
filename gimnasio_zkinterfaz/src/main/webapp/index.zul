@@ -1,6 +1,6 @@
 <zk>
 
-	<window title="Página principal" border="normal">
+	<window title="Página principal - Gimnasio" border="normal">
 	
 		<button label="Gestión de usuarios y matrículas"
 			onClick='Executions.sendRedirect("edit_usuario.zul")'>
@@ -11,7 +11,7 @@
 		</button>
 		
 		<!-- <button label="Gestión de accesos"
-			onClick='Executions.sendRedirect("edit_acceso.zul")'>
+			onClick='Executions.sendRedirect("acceso.zul")'>
 		</button>-->
 	
 	</window>

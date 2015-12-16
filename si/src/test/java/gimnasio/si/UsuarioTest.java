@@ -14,21 +14,35 @@ import org.junit.Test;
 
 import gimnasio.si.util.Transaction;
 import gimnasio.si.util.TransactionUtil;
-
+/**
+ *Creacion del Test de Usuario, para comprobar su funcionamiento y crear datos
+ *  @author Nancy Ocampo, Jenifer Vázquez, Nuria Canle
+ */
 public class UsuarioTest {
 
 	private static EntityManagerFactory emf;
-
+	/**
+	 * Metodo que cree la EntityManagerFactory
+	 * @return void
+	 */
 	@BeforeClass
 	public static void createEntityManagerFactory() {
 		emf = Persistence.createEntityManagerFactory("gimnasio-database");
 	}
-
+	/**
+	 * Metodo para cerrar la conexion de la base de datos. Se ejecuta cuando se terminan todos los test
+	 * @return void
+	 */
 	@AfterClass
 	public static void closeEntityManagerFactory() {
 		emf.close();
 	}
-
+	/**
+	 * Metodo para crear las pruebas sobre los Usuarios en la base de datos. 
+	 * En el creamos 2 usuarios, con sus atributos correspondientes y comprobamos
+	 * que los datos sean guardados correctamente en la BD
+	 * @return void
+	 */
 	@Test
 	public void testCreateUsuario() {
 

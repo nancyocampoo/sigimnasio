@@ -2,11 +2,10 @@
 	<window title="Gestionar Matriculas" border="normal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('zk.MatriculaVM')">
-		<window title="Crear Usuario" border="normal"
+		<window title="Crear Matricula" border="normal"
 		mode="modal" visible="@load(vm.matriculaActual ne null)">
 			<hbox>
 				<vbox>
-<!-- 			 	Nombre usuario:<textbox value="@bind(vm.matriculaActual.nombre)"></textbox>   -->
 					Fecha Alta:<datebox value="@load(vm.matriculaActual.fechaAlta)  @save(vm.matriculaActual.fechaAlta, before='save')"></datebox> 
 					Fecha Baja:<datebox value="@load(vm.matriculaActual.fechaBaja)  @save(vm.matriculaActual.fechaBaja, before='save')"></datebox>
 					Tipo Tarifa:<radiogroup selectedItem="@load(vm.matriculaActual.tarifa) @save(vm.matriculaActual.tarifa, before='save')"> 
@@ -66,10 +65,11 @@
 		</groupbox>
 		
 		Número de matrículas: <label value="@load(vm.count)"></label>
-		
+		<hbox>
 		<button label="Volver a la página principal"
 			onClick='Executions.sendRedirect("index.zul")'>
 		</button>
+		</hbox>
 		
 	</window>
 

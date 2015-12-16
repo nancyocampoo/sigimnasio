@@ -13,31 +13,50 @@ import gimnasio.si.util.TransactionUtil;
 import zk.jpa.DesktopEntityManagerManager;
 
 
+/**
+ * @author Nancy Ocampo, Jenifer Vázquez, Nuria Canle
+ *
+ */
 public class AccesosVM {
 
 	private Acceso accesoActual = null;
 	
+	/**
+	 * @return
+	 */
 	public Acceso getAccesoActual(){ 
 		return accesoActual;
 	}
 	
+	/**
+	 * @return
+	 */
 	public List<Acceso> getAccesos() {
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
 		return em.createQuery("select d from Acceso d",Acceso.class).getResultList();
 	}
 	
+	/**
+	 * 
+	 */
 	@Command
 	@NotifyChange("accesoActual")
 	public void nuevoAcceso(){
 		this.accesoActual = new Acceso();
 	}
 	
+	/**
+	 * 
+	 */
 	@Command
 	@NotifyChange("accesoActual")
 	public void cancelar(){
 		this.accesoActual = null;
 	}
 	
+	/**
+	 * 
+	 */
 	@Command
 	@NotifyChange({"accesoActual","accesos"})
 	public void guardar(){

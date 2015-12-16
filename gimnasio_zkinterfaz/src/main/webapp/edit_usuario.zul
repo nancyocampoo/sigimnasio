@@ -59,11 +59,11 @@
 		</groupbox>
 		
 		Número de usuarios: <label value="@load(vm.count)"></label>
-		
+		<hbox>
 		<button label="Volver a la página principal"
 			onClick='Executions.sendRedirect("index.zul")'>
 		</button>
-
+		</hbox>
 	</window>
 
 
