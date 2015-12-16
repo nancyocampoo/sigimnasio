@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Matricula {
@@ -21,11 +22,13 @@ public class Matricula {
 	private Date fechaBaja;
 	@Enumerated(EnumType.STRING)
 	private TipoTarifa tarifa;
+	//@Pattern(regexp = "[0-9.-,]*")
 	private float precioTarifa;
 	@ManyToOne
 	private Usuario usuario;
+	@ManyToOne
+	private Centro centro;
 	
-
 	public Date getFechaAlta() {
 		return fechaAlta;
 	}
@@ -64,14 +67,38 @@ public class Matricula {
 
 	// lo devuelve
 	public Usuario getUsuario() {
-		return usuario;
+		return this.usuario;
 	}
 
 	// lo guarda
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(Usuario usuario)
+	{
+		if(this.usuario!=null){
+			this.usuario.internalRemoveMatricula(this);
+		}
 		this.usuario = usuario;
+		if(usuario!=null){
+			usuario.internalAddMatricula(this);
+		}
 	}
-
+	
+	// lo devuelve
+	public Centro getCentro() {
+		return this.centro;
+	}
+	
+	// lo guarda
+	public void setCentro(Centro centro)
+	{
+		if(this.centro!=null){
+			this.centro.internalRemoveMatricula(this);
+		}
+		this.centro = centro;
+		if(centro!=null){
+			centro.internalAddMatricula(this);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -81,6 +108,7 @@ public class Matricula {
 		result = prime * result + Float.floatToIntBits(precioTarifa);
 		result = prime * result + ((tarifa == null) ? 0 : tarifa.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
+		result = prime * result + ((centro == null) ? 0 : centro.hashCode());
 		return result;
 	}
 
@@ -113,6 +141,11 @@ public class Matricula {
 			if (other.usuario != null)
 				return false;
 		} else if (!usuario.equals(other.usuario))
+			return false;
+		if (centro == null) {
+			if (other.centro != null)
+				return false;
+		} else if (!centro.equals(other.centro))
 			return false;
 		return true;
 	}

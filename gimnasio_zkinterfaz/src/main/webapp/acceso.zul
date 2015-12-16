@@ -1,0 +1,17 @@
+<zk>
+	<window title="Crear Acceso" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('zk.AccesosVM')">
+		<window title="Editar accesos" border="normal"
+		mode="modal" visible="true">
+			name:<textbox value="@load(vm.accesoActual.idAcceso)"></textbox>
+			<hbox>
+				<button label="save" onClick="@command('save')"></button>
+				<button label="cancel" onClick="@command('cancel')"></button>
+			</hbox>
+		</window>
+	
+	</window>
+
+
+</zk>

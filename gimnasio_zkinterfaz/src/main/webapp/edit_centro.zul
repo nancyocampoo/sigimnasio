@@ -6,12 +6,12 @@
 		mode="modal" visible="@load(vm.centroActual ne null)">
 			<hbox>
 				<vbox>
-			 		Nombre:<textbox value="@bind(vm.centroActual.nombre)"></textbox>  
-					Horario:<textbox value="@load(vm.centroActual.horario)  @save(vm.centroActual.horario, before='save')"></textbox>
+			 		Nombre:<textbox maxlength="100" value="@bind(vm.centroActual.nombre)"></textbox>  
+					Horario:<textbox maxlength="50" value="@load(vm.centroActual.horario)  @save(vm.centroActual.horario, before='save')"></textbox>
 					Ciudad: <combobox selectedItem="@bind(vm.centroActual.ciudad)">
-					    <comboitem label="${each}" forEach="${vm.ciudad}" value="${each}"/>
-					</combobox>
-					Localizacion:<textbox value="@load(vm.centroActual.localizacion)  @save(vm.centroActual.localizacion, before='save')"></textbox>
+					    		<comboitem label="${each}" forEach="${vm.ciudad}" value="${each}"/>
+							</combobox>
+					Localizacion:<textbox maxlength="100" value="@load(vm.centroActual.localizacion)  @save(vm.centroActual.localizacion, before='save')"></textbox>
 				</vbox>
 			</hbox>
 			<hbox>
@@ -49,8 +49,13 @@
 			</listbox>
 
 		</groupbox>
+		
+		Número de centros: <label value="@load(vm.count)"></label>
+		
+		<button label="Volver a la página principal"
+			onClick='Executions.sendRedirect("index.zul")'>
+		</button>
 
 	</window>
-
 
 </zk>

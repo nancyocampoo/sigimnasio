@@ -4,19 +4,19 @@
 		viewModel="@id('vm') @init('zk.UsuarioVM')">
 		<window title="Crear Usuario" border="normal"
 		mode="modal" visible="@load(vm.usuarioActual ne null)">
-			<hbox>
+			<hbox> 
 				<vbox>
-			 		Nombre:<textbox value="@bind(vm.usuarioActual.nombre)"></textbox>  
-					DNI:<textbox value="@load(vm.usuarioActual.dni)  @save(vm.usuarioActual.dni, before='save')"></textbox> 
+			 		Nombre:<textbox maxlength="100" value="@bind(vm.usuarioActual.nombre)"></textbox>  
+					DNI:<textbox maxlength="9" value="@load(vm.usuarioActual.dni)  @save(vm.usuarioActual.dni, before='save')"></textbox> 
 					Fecha Nacimiento:<datebox value="@load(vm.usuarioActual.fechaNacimiento)  @save(vm.usuarioActual.fechaNacimiento, before='save')"></datebox>
 					Sexo:<radiogroup selectedItem="@bind(vm.usuarioActual.sexo)"> 
-						<radio label="${each}" forEach="${vm.sexo}" value="${each}" />	
-					</radiogroup>
-					Domicilio:<textbox value="@load(vm.usuarioActual.domicilio)  @save(vm.usuarioActual.domicilio, before='save')"></textbox>
-					Telefono:<textbox value="@load(vm.usuarioActual.telefono)  @save(vm.usuarioActual.telefono, before='save')"></textbox>
+							<radio label="${each}" forEach="${vm.sexo}" value="${each}" />	
+						 </radiogroup>
+					Domicilio:<textbox maxlength="100" value="@load(vm.usuarioActual.domicilio)  @save(vm.usuarioActual.domicilio, before='save')"></textbox>
+					Telefono:<textbox maxlength="9" value="@load(vm.usuarioActual.telefono)  @save(vm.usuarioActual.telefono, before='save')"></textbox>
 					Ocupacion:<radiogroup selectedItem="@bind(vm.usuarioActual.ocupacion)">
-						<radio label="${each}" forEach="${vm.ocupacion}" value="${each}" />	
-					</radiogroup>
+								<radio label="${each}" forEach="${vm.ocupacion}" value="${each}" />	
+							  </radiogroup>
 				</vbox>
 			</hbox>
 			<hbox>
@@ -48,12 +48,21 @@
 							<button label="Modificar"
 								onClick="@command('modificar',usuario=each)">
 							</button>
+							<button label="Gestionar matrículas" 
+								onClick="@command('editarMatricula', usuario=each)" >
+							</button>
 						</listcell>
 					</listitem>
 				</template>
 			</listbox>
 
 		</groupbox>
+		
+		Número de usuarios: <label value="@load(vm.count)"></label>
+		
+		<button label="Volver a la página principal"
+			onClick='Executions.sendRedirect("index.zul")'>
+		</button>
 
 	</window>
 

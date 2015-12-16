@@ -31,7 +31,7 @@ public class CentroTest {
 	public static void closeEntityManagerFactory() {
 		emf.close();
 	}
-//NOMBRE DEL ATRIBUTO
+	//NOMBRE DEL ATRIBUTO
 	@Test
 	public void testCreateCentro() {
 		final Centro centro1 = new Centro();
@@ -40,11 +40,11 @@ public class CentroTest {
 		centro1.setHorario("10:00-10:00");
 		centro1.setLocalizacion("Lagoas");
 		EntityManager em = emf.createEntityManager();
+		
+		
 		TransactionUtil.doTransaction(new Transaction() {
 			public void run(EntityManager em) {
 				em.persist(centro1);
-				// TODO Auto-generated method stub
-
 			}
 		}, em);
 		List<Centro> centrosRec = em.createQuery("Select c From Centro c").getResultList();

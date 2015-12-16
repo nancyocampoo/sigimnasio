@@ -6,6 +6,8 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	<persistence-unit name="gimnasio-database" transaction-type="RESOURCE_LOCAL">
 		<!-- put here your entities. One <class> per entity -->
 		<class>gimnasio.si.Matricula</class>
+		<class>gimnasio.si.Centro</class>
+		<class>gimnasio.si.Usuario</class>
 		<!-- <class>sing.proyectosi.Department</class>
 		<class>sing.proyectosi.Project</class> -->
 		<properties>

@@ -7,8 +7,11 @@ import javax.persistence.EntityManager;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.DependsOn;
+import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.bind.annotation.QueryParam;
 
+import gimnasio.si.Centro;
 import gimnasio.si.Matricula;
 import gimnasio.si.TipoTarifa;
 import gimnasio.si.Usuario;
@@ -18,19 +21,39 @@ import zk.jpa.DesktopEntityManagerManager;
 
 public class MatriculaVM {
 	
+	
 	private Matricula matriculaActual = null;
 	private boolean edit = false;
 	private TipoTarifa[] tipoTarifa = TipoTarifa.values();
+	private int idUsuario;
+	
+	@Init
+	public void init(@QueryParam("id") String id) {
+		this.idUsuario =Integer.parseInt(id);
+		System.out.println("id usuario" +this.idUsuario);
+	}
 	
 	public List<Matricula> getMatriculas() {
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
-		return em.createQuery("select m from Matricula m", Matricula.class).getResultList();
+		return em.createQuery("select m from Matricula m where usuario=" + this.idUsuario, Matricula.class).getResultList();
+	}
+	
+	public List<Centro> getCentros() {
+		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
+		return em.createQuery("select c from Centro c ", Centro.class).getResultList();
+	}
+	
+	public Usuario getUsuario() {
+		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
+		return em.createQuery("select u from Usuario u where id=" + this.idUsuario, Usuario.class).getSingleResult();
 	}
 	
 	@Command
 	@NotifyChange("matriculaActual")
 	public void nuevaMatricula(){
+		Usuario usuario = this.getUsuario();
 		this.matriculaActual = new Matricula();
+		this.matriculaActual.setUsuario(usuario);
 		this.edit = false;
 	}
 	
@@ -62,24 +85,8 @@ public class MatriculaVM {
 		return matriculaActual;
 	}
 
-	public void setMatriculaActual(Matricula matriculaActual) {
-		this.matriculaActual = matriculaActual;
-	}
-
-	public boolean isEdit() {
-		return edit;
-	}
-
-	public void setEdit(boolean edit) {
-		this.edit = edit;
-	}
-
 	public TipoTarifa[] getTipoTarifa() {
 		return tipoTarifa;
-	}
-
-	public void setTipoTarifa(TipoTarifa[] tipoTarifa) {
-		this.tipoTarifa = tipoTarifa;
 	}
 	
 	@Command
@@ -104,6 +111,17 @@ public class MatriculaVM {
 		this.matriculaActual = m;
 		this.edit = true;
 	}
+	
+	/*private void getVariable(){
+        Execution exec = Executions.getCurrent();
+        String variableRecuperada = exec.getParameter("id");
+        this.idUsuario =Integer.parseInt(variableRecuperada);
+    }*/
+
+	/*public int getIdUsuario() {
+		return idUsuario;
+	}*/
+	
 	
 
 }

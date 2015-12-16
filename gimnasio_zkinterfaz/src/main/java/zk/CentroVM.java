@@ -11,11 +11,10 @@ import org.zkoss.bind.annotation.NotifyChange;
 
 import gimnasio.si.Centro;
 import gimnasio.si.Ciudad;
+import gimnasio.si.Matricula;
 import gimnasio.si.util.Transaction;
 import gimnasio.si.util.TransactionUtil;
 import zk.jpa.DesktopEntityManagerManager;
-
-
 
 public class CentroVM {
 	
@@ -42,6 +41,13 @@ public class CentroVM {
 		TransactionUtil.doTransaction(new Transaction() {
 			@Override
 			public void run(EntityManager em) {
+				System.err.println("num matriculas: "+c.getMatriculas().size());
+				List<Matricula> matriculas = c.getMatriculas();
+				for (int i = matriculas.size() -1; i>=0; i--) {
+					matriculas.get(i).setCentro(null);
+					System.err.println("quitado.");
+				}
+				System.err.println("eliminando centro...");
 				em.remove(c);
 			}
 		}, em);
@@ -59,21 +65,12 @@ public class CentroVM {
 		this.centroActual = null;
 	}
 
-
 	public Centro getCentroActual() {
 		return centroActual;
 	}
 
 	public void setCentroActual(Centro centroActual) {
 		this.centroActual = centroActual;
-	}
-
-	public boolean isEdit() {
-		return edit;
-	}
-
-	public void setEdit(boolean edit) {
-		this.edit = edit;
 	}
 
 	public Ciudad[] getCiudad() {

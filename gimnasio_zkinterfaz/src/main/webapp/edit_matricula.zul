@@ -6,13 +6,27 @@
 		mode="modal" visible="@load(vm.matriculaActual ne null)">
 			<hbox>
 				<vbox>
-<!-- 			 		Nombre usuario:<textbox value="@bind(vm.matriculaActual.nombre)"></textbox>   -->
+<!-- 			 	Nombre usuario:<textbox value="@bind(vm.matriculaActual.nombre)"></textbox>   -->
 					Fecha Alta:<datebox value="@load(vm.matriculaActual.fechaAlta)  @save(vm.matriculaActual.fechaAlta, before='save')"></datebox> 
 					Fecha Baja:<datebox value="@load(vm.matriculaActual.fechaBaja)  @save(vm.matriculaActual.fechaBaja, before='save')"></datebox>
-					Tipo Tarifa:<radiogroup selectedItem="@bind(vm.matriculaActual.tarifa)"> 
+					Tipo Tarifa:<radiogroup selectedItem="@load(vm.matriculaActual.tarifa) @save(vm.matriculaActual.tarifa, before='save')"> 
 						<radio label="${each}" forEach="${vm.tipoTarifa}" value="${each}" />	
 					</radiogroup>
-					Precio Tarifa:<textbox value="@load(vm.matriculaActual.precioTarifa)  @save(vm.matriculaActual.precioTarifa, before='save')"></textbox>
+					Precio Tarifa:<textbox maxlength="5" value="@load(vm.matriculaActual.precioTarifa)  @save(vm.matriculaActual.precioTarifa, before='save')"></textbox>
+				
+					<listbox model="@load(vm.centros)" selectedItem="@bind(vm.matriculaActual.centro)" id="centro" width="200px">
+			            <listhead>
+			                <listheader label="Centro"/>
+			            </listhead>
+			            <template name="model" value="${each}">
+							<listitem>
+								<listcell>
+									<label value="@load(each.nombre)" />
+								</listcell>
+							</listitem>
+						</template>
+			        </listbox>
+				
 				</vbox>
 			</hbox>
 			<hbox>
@@ -22,20 +36,20 @@
 		</window>
 
 		<groupbox mold="3d" closable="false">
-			<caption label="Lista de Matriculas">
+			<caption label="Lista de Matriculas del usuario: "> <label value="@load(vm.usuario.dni)"></label>
 			<hbox>
 				<button label="Crear nueva matricula" onClick="@command('nuevaMatricula')" />
-				</hbox>
+				</hbox>				
 			</caption>
 			<listbox model="@load(vm.matriculas)">
 				<listhead>
-					<listheader label="fechaAlta" />
-					<listheader label="Actions" />
+					<listheader label="Número de matrícula" />
+					<listheader label="Acciones" />
 				</listhead>
 				<template name="model">
 					<listitem>
 						<listcell>
-							<label value="@load(each.fechaAlta)" />
+							<label value="@load(each.id)" />
 						</listcell>
 						<listcell>
 							<button label="Borrar"
@@ -50,8 +64,13 @@
 			</listbox>
 
 		</groupbox>
-
+		
+		Número de matrículas: <label value="@load(vm.count)"></label>
+		
+		<button label="Volver a la página principal"
+			onClick='Executions.sendRedirect("index.zul")'>
+		</button>
+		
 	</window>
-
 
 </zk>

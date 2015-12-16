@@ -8,6 +8,7 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.DependsOn;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Executions;
 
 import gimnasio.si.Ocupacion;
 import gimnasio.si.Sexo;
@@ -121,6 +122,11 @@ public class UsuarioVM {
 	public void modificar (@BindingParam("usuario") Usuario u){
 		this.usuarioActual = u;
 		this.edit = true;
+	}
+
+	@Command
+	public void editarMatricula(@BindingParam("usuario") Usuario u){
+		Executions.sendRedirect("edit_matricula.zul?id="+u.getId());
 	}
 	
 

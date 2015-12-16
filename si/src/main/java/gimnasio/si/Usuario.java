@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Access;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,32 +15,35 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Usuario {
+	//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@NotNull @Column(length=45)
+	@NotNull @Column(length=100)
+	@Pattern(regexp = "[a-zA-Z ñáéíóúÑÁÉÍÓÚ]*")
 	private String nombre;
 	@Column(unique = true, length=9)
+	@Pattern(regexp = "[0-9]{8}[a-zA-Z]")
 	private String dni;
 	private Date fechaNacimiento;
-	//@NotNull
+	@NotNull @Column(length=100)
 	private String domicilio;
-	//@NotNull 
-	private int telefono;
+	@NotNull @Column(length=9)
+	@Pattern(regexp = "[0-9]{9}")
+	private String telefono;
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
 	@Enumerated(EnumType.STRING)
 	private Ocupacion ocupacion;
 	
-	
-	
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL)
 	private List<Matricula> matriculas= new ArrayList<Matricula>();
-	
-		
+	@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL)
+	private List<Acceso> accesos = new ArrayList<Acceso>();
 	
 	@Override
 	public int hashCode() {
@@ -98,11 +102,11 @@ public class Usuario {
 		this.domicilio = domicilio;
 	}
 
-	public int getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(int telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
@@ -124,6 +128,22 @@ public class Usuario {
 
 	public int getId() {
 		return id;
-	}	
+	}
+	
+	void internalAddMatricula(Matricula matricula) {
+		matriculas.add(matricula);
+	}
+	
+	void internalRemoveMatricula(Matricula matricula) {
+		matriculas.remove(matricula);
+	}
+	
+	void internalAddAcceso(Acceso acceso) {
+		this.accesos.add(acceso);
+	}
+	
+	void internalRemoveAcceso(Acceso acceso) {
+		this.accesos.remove(acceso);
+	}
 	
 }
