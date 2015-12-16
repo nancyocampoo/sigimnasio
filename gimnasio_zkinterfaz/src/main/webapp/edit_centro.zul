@@ -8,7 +8,7 @@
 				<vbox>
 			 		Nombre:<textbox maxlength="100" value="@bind(vm.centroActual.nombre)"></textbox>  
 					Horario:<textbox maxlength="50" value="@load(vm.centroActual.horario)  @save(vm.centroActual.horario, before='save')"></textbox>
-					Ciudad: <combobox selectedItem="@bind(vm.centroActual.ciudad)">
+					Ciudad: <combobox selectedItem="@load(vm.centroActual.ciudad) @save(vm.centroActual.ciudad, before='save')">
 					    		<comboitem label="${each}" forEach="${vm.ciudad}" value="${each}"/>
 							</combobox>
 					Localizacion:<textbox maxlength="100" value="@load(vm.centroActual.localizacion)  @save(vm.centroActual.localizacion, before='save')"></textbox>

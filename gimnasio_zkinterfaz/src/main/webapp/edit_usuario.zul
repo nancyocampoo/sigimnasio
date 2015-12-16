@@ -6,17 +6,17 @@
 		mode="modal" visible="@load(vm.usuarioActual ne null)">
 			<hbox> 
 				<vbox>
-			 		Nombre:<textbox maxlength="100" value="@bind(vm.usuarioActual.nombre)"></textbox>  
-					DNI:<textbox maxlength="9" value="@load(vm.usuarioActual.dni)  @save(vm.usuarioActual.dni, before='save')"></textbox> 
-					Fecha Nacimiento:<datebox value="@load(vm.usuarioActual.fechaNacimiento)  @save(vm.usuarioActual.fechaNacimiento, before='save')"></datebox>
-					Sexo:<radiogroup selectedItem="@bind(vm.usuarioActual.sexo)"> 
+			 		Nombre:<textbox maxlength="100" value="@load(vm.usuarioActual.nombre) @save(vm.usuarioActual.nombre, before='save')"></textbox>  
+					DNI:<textbox maxlength="9" value="@load(vm.usuarioActual.dni) @save(vm.usuarioActual.dni, before='save')"></textbox> 
+					Fecha Nacimiento:<datebox value="@load(vm.usuarioActual.fechaNacimiento) @save(vm.usuarioActual.fechaNacimiento, before='save')"></datebox>
+					Sexo:<radiogroup selectedItem="@load(vm.usuarioActual.sexo) @save(vm.usuarioActual.sexo, before='save')"> 
 							<radio label="${each}" forEach="${vm.sexo}" value="${each}" />	
 						 </radiogroup>
 					Domicilio:<textbox maxlength="100" value="@load(vm.usuarioActual.domicilio)  @save(vm.usuarioActual.domicilio, before='save')"></textbox>
-					Telefono:<textbox maxlength="9" value="@load(vm.usuarioActual.telefono)  @save(vm.usuarioActual.telefono, before='save')"></textbox>
-					Ocupacion:<radiogroup selectedItem="@bind(vm.usuarioActual.ocupacion)">
+					Telefono:<textbox maxlength="9" value="@load(vm.usuarioActual.telefono) @save(vm.usuarioActual.telefono, before='save')"></textbox>
+					Ocupacion:<radiogroup selectedItem="@load(vm.usuarioActual.ocupacion) @save(vm.usuarioActual.ocupacion, before='save')">
 								<radio label="${each}" forEach="${vm.ocupacion}" value="${each}" />	
-							  </radiogroup>
+					     </radiogroup>
 				</vbox>
 			</hbox>
 			<hbox>
